@@ -1,7 +1,7 @@
 import { totalPricesOnType, returnVisableType } from "./product_list_helper";
 
 export const productPieData = (products) => {
-  return (
+  return [
     {
       name: "Ração",
       value: totalPricesOnType(products, "racao"),
@@ -17,15 +17,15 @@ export const productPieData = (products) => {
     {
       name: "Outro",
       value: totalPricesOnType(products, "outro"),
-    }
-  );
+    },
+  ];
 };
 const returnMonthInformation = (month, products) => {
   let monthInformation = {};
   products.forEach((product) => {
     let productMonth = new Date(product.purchaseTime).getMonth();
     if (productMonth === month) {
-      let productType = product.type;
+      let productType = returnVisableType(product.type);
       if (productType in monthInformation) {
         monthInformation[productType] =
           monthInformation[productType] + product.price;
@@ -45,9 +45,8 @@ const visableFormatLineData = (lineData) => {
       monthInformation.month
     );
   });
-  corretFormatLineData.reverse();
 
-  corretFormatLineData.forEach(() => {});
+  corretFormatLineData.reverse();
 
   return corretFormatLineData;
 };
@@ -71,6 +70,5 @@ export const productLineData = (products) => {
       month = 12;
     }
   }
-
   return visableFormatLineData(data);
 };

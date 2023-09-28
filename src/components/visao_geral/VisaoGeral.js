@@ -12,9 +12,12 @@ import {
   Tooltip,
   Legend,
   Line,
+  ResponsiveContainer,
 } from "recharts";
-import { totalPricesOnType } from "../services/product_list_helper";
-import { productLineData } from "../services/product_graph_helper";
+import {
+  productLineData,
+  productPieData,
+} from "../services/product_graph_helper";
 import { useState } from "react";
 
 export default function VisaoGeral(props) {
@@ -26,27 +29,10 @@ export default function VisaoGeral(props) {
     setIsCompraExpanded(!isCompraExpanded);
   };
 
-  const data01 = productLineData(products);
-  const data02 = [
-    {
-      name: "Ração",
-      value: totalPricesOnType(products, "racao"),
-    },
-    {
-      name: "Brinquedo",
-      value: totalPricesOnType(products, "brinquedo"),
-    },
-    {
-      name: "Remédio",
-      value: totalPricesOnType(products, "remedio"),
-    },
-    {
-      name: "Outro",
-      value: totalPricesOnType(products, "outro"),
-    },
-  ];
+  const lineData = productLineData(products);
+  const pieData = productPieData(products);
 
-  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+  const COLORS = ["#FFBB28", "#FF8042", "#00C49F", "#0088FE"];
 
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
@@ -57,7 +43,7 @@ export default function VisaoGeral(props) {
     outerRadius,
     percent,
     index,
-    name, // Adicione a propriedade name para acessar o nome da categoria
+    name,
   }) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -109,10 +95,10 @@ export default function VisaoGeral(props) {
         >
           <div className="content-visao-geral-graph1">
             <p className="title-graph">Gastos por categoria</p>
-            <div className="graph-graph">
-              <PieChart width={400} height={300}>
+            <ResponsiveContainer width={"80%"} height={"80%"}>
+              <PieChart>
                 <Pie
-                  data={data02}
+                  data={pieData}
                   cx="50%"
                   cy="50%"
                   labelLine={false}
@@ -122,7 +108,7 @@ export default function VisaoGeral(props) {
                   fill="#8884d8"
                   dataKey="value"
                 >
-                  {data02.map((entry, index) => (
+                  {pieData.map((entry, index) => (
                     <Cell
                       key={`cell-${index}`}
                       fill={COLORS[index % COLORS.length]}
@@ -130,15 +116,13 @@ export default function VisaoGeral(props) {
                   ))}
                 </Pie>
               </PieChart>
-            </div>
+            </ResponsiveContainer>
           </div>
           <div className="content-visao-geral-graph2">
             <p className="title-graph">Gastos por categoria por mês</p>
-            <div className="graph-graph">
+            <ResponsiveContainer width={"80%"} height={"80%"}>
               <LineChart
-                width={450}
-                height={250}
-                data={data01}
+                data={lineData}
                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
@@ -146,12 +130,12 @@ export default function VisaoGeral(props) {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="remedio" stroke="#0088FE" />
-                <Line type="monotone" dataKey="brinquedo" stroke="#00C49F" />
-                <Line type="monotone" dataKey="outro" stroke="#FFBB28" />
-                <Line type="monotone" dataKey="racao" stroke="#FF8042" />
+                <Line type="monotone" dataKey="Remédio" stroke="#00C49F" />
+                <Line type="monotone" dataKey="Brinquedo" stroke="#FF8042" />
+                <Line type="monotone" dataKey="Outros" stroke="#0088FE" />
+                <Line type="monotone" dataKey="Ração" stroke="#FFBB28" />
               </LineChart>
-            </div>
+            </ResponsiveContainer>
           </div>
         </div>
       </div>
