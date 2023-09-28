@@ -2,6 +2,13 @@ import CustomButton from "../custom_button/CustomButton";
 import "./CompraCard.css";
 import api from "../services/api";
 import { returnVisableType } from "../services/product_list_helper";
+import { useState } from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 export default function CompraCard(product) {
   const id = product.id;
@@ -13,6 +20,11 @@ export default function CompraCard(product) {
   const lastEditTime = product.lastEditTime;
   const refreshAllProducts = product.refreshAllProducts;
   const handleOpenEdit = product.handleOpenEdit;
+  const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
+
+  const handleOpenDeleteAlert = () => {
+    setIsDeleteAlertOpen(!isDeleteAlertOpen);
+  };
 
   const visablePurchaseTime = `${purchaseTime.getDate()}/${purchaseTime.getMonth()}/${purchaseTime.getFullYear()}`;
   let visableLastEditTime = "";
@@ -28,49 +40,69 @@ export default function CompraCard(product) {
     api
       .delete(`produtos/${identifier}`)
       .then((response) => {
-        alert("Sucesso em deletar");
+        handleOpenDeleteAlert();
         refreshAllProducts();
       })
       .catch((error) => {
-        console.log(error);
-        alert(`Erro em deletar. Error ${error}`);
+        alert(`Erro em deletar, devido: ${error}`);
       });
   };
 
   return (
-    <div className="background-container-compra-card">
-      <div className="background-title-container-compra-card">
-        <p> {name} </p>
-        <div className="background-button-container">
-          <CustomButton
-            handleClick={() => deleteProduct(id)}
-            charForIcon="-"
-            title="Remover produto"
-            width={40}
-            height={40}
-          />
-          <CustomButton
-            handleClick={() => handleOpenEdit(id)}
-            charForIcon="#"
-            title="Editar produto"
-            width={40}
-            height={40}
-          />
+    <>
+      <div className="background-container-compra-card">
+        <div className="background-title-container-compra-card">
+          <p> {name} </p>
+          <div className="background-button-container">
+            <CustomButton
+              handleClick={handleOpenDeleteAlert}
+              charForIcon="-"
+              title="Remover produto"
+              width={40}
+              height={40}
+            />
+            <CustomButton
+              handleClick={() => handleOpenEdit(id)}
+              charForIcon="#"
+              title="Editar produto"
+              width={40}
+              height={40}
+            />
+          </div>
+        </div>
+        <div className="surface-container-compra-card">
+          <p className="atribute-compra-card">
+            {`Tipo: ${returnVisableType(type)}`}
+          </p>
+          <p className="atribute-compra-card">
+            {`Preço: R$ ${price.toFixed(2)}`}{" "}
+          </p>
+          <p className="atribute-compra-card">
+            {`Quantidade: ${quantity.toFixed(2)}`}
+          </p>
+          <p className="atribute-compra-card">{`Data de compra: ${visablePurchaseTime}`}</p>
+          <p className="atribute-compra-card">{`Última edição: ${visableLastEditTime}`}</p>
         </div>
       </div>
-      <div className="surface-container-compra-card">
-        <p className="atribute-compra-card">
-          {`Tipo: ${returnVisableType(type)}`}
-        </p>
-        <p className="atribute-compra-card">
-          {`Preço: R$ ${price.toFixed(2)}`}{" "}
-        </p>
-        <p className="atribute-compra-card">
-          {`Quantidade: ${quantity.toFixed(2)}`}
-        </p>
-        <p className="atribute-compra-card">{`Data de compra: ${visablePurchaseTime}`}</p>
-        <p className="atribute-compra-card">{`Ultima edição: ${visableLastEditTime}`}</p>
-      </div>
-    </div>
+      <Dialog
+        open={isDeleteAlertOpen}
+        onClose={handleOpenDeleteAlert}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          Aperte confirmar para deletar.
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {`O produto de nome "${name}" será deletado do seu banco de dados. Tem certeza dessa ação?`}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleOpenDeleteAlert}>Cancelar</Button>
+          <Button onClick={() => deleteProduct(id)}>Confirmar</Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }

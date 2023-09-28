@@ -15,7 +15,7 @@ function checkType(type) {
       type === "outro"
     )
   ) {
-    throw Error("O valor de type é invalido");
+    throw Error("O valor do tipo é invalido");
   }
 }
 
@@ -50,17 +50,17 @@ function checkQuantity(quantity) {
 }
 
 function checkPurchaseTime(date) {
-  let currentDate = new Date();
-  let limitDate = new Date();
-  limitDate.setDate(limitDate.getDate() + 50);
-  console.log(date);
+  let postLimitDate = new Date();
+  let prevLimitDate = new Date();
+  postLimitDate.setDate(postLimitDate.getDate() + 50);
+  prevLimitDate.setDate(prevLimitDate.getDate() - 50);
+
   let inputDate = new Date(date);
-  console.log("em cima inputDate");
-  console.log(inputDate);
+
   if (!(inputDate instanceof Date)) {
     throw Error("O campo de data está em um formato errado");
   }
-  if (inputDate >= currentDate && inputDate <= limitDate) {
+  if (inputDate > postLimitDate || inputDate < prevLimitDate) {
     throw Error("O campo de data está fora do intervalo de 50 dias");
   }
 }

@@ -1,0 +1,18 @@
+.content-visao-geral-expand{
+    box-sizing: border-box;
+    height: 800px;
+    margin: 2.5% 5% 0%; 
+    display: flex;   
+    transition: 0.3s; 
+}
+
+.content-visao-geral-graphs-expand{
+    display: none;  
+    transition: 0.3s;      
+}
+
+.section-visao-geral-compra-expand{
+    width:100%;
+    height: inherit;
+    transition: 0.3s; 
+}

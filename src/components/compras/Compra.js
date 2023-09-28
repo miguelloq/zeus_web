@@ -1,14 +1,26 @@
 import "./Compra.css";
 import CompraCard from "../compra_card/CompraCard";
-import * as React from "react";
+import { useState, useEffect } from "react";
 import DialogFormProduct from "../dialog_form_product/DialogFormProduct";
 import CustomButton from "../custom_button/CustomButton";
-import { filterLastProducts } from "../services/product_list_helper";
+import {
+  filterLastProducts,
+  filterBasedOnSubStringForName,
+} from "../services/product_list_helper";
 
 export default function Compra(inputProducts) {
-  const [openAdd, setOpenAdd] = React.useState(false);
+  const [openAdd, setOpenAdd] = useState(false);
+  const [editProductId, setEditProductId] = useState("");
+
   const refreshAllProducts = inputProducts.refreshAllProducts;
-  const [editProductId, setEditProductId] = React.useState("");
+  const isCompraExpanded = inputProducts.isCompraExpanded;
+  const handleCompraExpand = inputProducts.handleCompraExpand;
+  const products = inputProducts.products;
+  const [filteredProducts, setFilteredProducts] = useState(products);
+
+  useEffect(() => {
+    setFilteredProducts(inputProducts.products);
+  }, [inputProducts.isCompraExpanded, inputProducts.products]);
 
   const handleClickOpenAdd = (productId) => {
     if (!(productId === "")) {
@@ -32,22 +44,54 @@ export default function Compra(inputProducts) {
     setOpenAdd(false);
   };
 
+  const filterBasedOnSearch = (inputText) => {
+    setFilteredProducts(filterBasedOnSubStringForName(products, inputText));
+  };
+
   return (
     <>
       <section className="section-compra">
         <div className="primary-compra">
-          <p className="primary-title-compra">Compras</p>
+          <div>
+            <p className="primary-title-compra">
+              {isCompraExpanded ? "Histórico" : "Compras"}
+            </p>
+          </div>
           <div className="primary-options-compra">
+            <CustomButton
+              charForIcon="/"
+              handleClick={handleCompraExpand}
+              width={isCompraExpanded ? 50 : undefined}
+              height={isCompraExpanded ? 50 : undefined}
+              title="Expandir compras"
+            />
             <CustomButton
               charForIcon="+"
               handleClick={() => handleClickOpenAdd("")}
+              width={isCompraExpanded ? 50 : undefined}
+              height={isCompraExpanded ? 50 : undefined}
               title="Adicionar produto"
             />
           </div>
         </div>
-        <div className="content-compra">
-          {filterLastProducts(inputProducts.products, 10).map((product) => {
-            console.log(`${product.name}: ${product.purchaseTime}`);
+        {isCompraExpanded ? (
+          <div className="search-compra-expand">
+            <label>Busque o produto pelo seu nome</label>
+            <input
+              maxLength={20}
+              onChange={(e) => filterBasedOnSearch(e.target.value)}
+            ></input>
+          </div>
+        ) : undefined}
+        <div
+          className={
+            isCompraExpanded ? "content-compra-expand" : "content-compra"
+          }
+        >
+          {filterLastProducts(
+            isCompraExpanded ? filteredProducts : products,
+            isCompraExpanded ? undefined : 10
+          ).map((product) => {
             return (
               <CompraCard
                 key={product._id}

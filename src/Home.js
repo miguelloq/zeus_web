@@ -1,5 +1,5 @@
 import Header from "./components/banner/Banner";
-import Resumo from "./components/gastos/Resumo";
+import Resumo from "./components/resumo/Resumo";
 import VisaoGeral from "./components/visao_geral/VisaoGeral";
 import React, { useEffect, useState } from "react";
 import api from "./components/services/api";

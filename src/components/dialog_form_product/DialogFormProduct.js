@@ -74,7 +74,6 @@ export default function DialogAddProduto(props) {
   //this can throw a error, use inside a try/catch
   const returnCorrectFormatProduct = () => {
     let correctDate = new Date(date);
-    console.log(correctDate);
     return {
       name: name,
       quantity: Number(quantity),
@@ -91,14 +90,11 @@ export default function DialogAddProduto(props) {
       api
         .post("/produtos", product)
         .then((response) => {
-          alert("Produto adicionado");
           handleCloseAddandRefresh();
         })
-        .catch((error) =>
-          alert(`Produto não adicionado devido a erro: ${error}`)
-        );
+        .catch((error) => alert(`Produto não adicionado devido ${error}`));
     } catch (error) {
-      alert(`Produto não adicionado devido: ${error}`);
+      alert(`Produto não adicionado devido ${error}`);
     }
   };
 
@@ -109,13 +105,11 @@ export default function DialogAddProduto(props) {
       api
         .put(`/produtos/${id}`, product)
         .then((response) => {
-          alert("Produto editado");
           handleCloseAddandRefresh();
         })
-        .catch((error) => alert(`Produto não editado devido a erro: ${error}`));
-      console.log(product);
+        .catch((error) => alert(`Produto não editado devido ${error}`));
     } catch (error) {
-      alert(`Produto não editado devido: ${error}`);
+      alert(`Produto não editado devido ${error}`);
     }
   };
 
@@ -130,7 +124,7 @@ export default function DialogAddProduto(props) {
           <DialogContentText>
             {productId === ""
               ? "Adicione um produto em seu banco de dados. As informações do produto é visível tanto para celular quanto site."
-              : "Edite um produto em seu banco de dados. Caso não queira mudar algum campo, não altere-o."}
+              : "Edite um produto em seu banco de dados. Caso não queira mudar algum campo, não altere-o ou cancele."}
           </DialogContentText>
           <TextField
             autoFocus
@@ -180,10 +174,12 @@ export default function DialogAddProduto(props) {
             margin="dense"
             id="name"
             type="date"
+            //min={`${currentDate.getFullYear}-${currentDate.getMonth - 2}-${1}`}
             fullWidth
             variant="filled"
             required={true}
             value={date}
+            //max="2020-12-31T00:00"
             onChange={(e) => {
               setDate(e.target.value);
             }}

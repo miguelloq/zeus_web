@@ -6,7 +6,7 @@
     border-radius: 8px;
     box-shadow: 0 0 3.5px black;
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;        
 }
 
 .background-title-container-compra-card{
@@ -46,7 +46,6 @@
 .atribute-compra-card{
     margin: 0;
     margin-left: 5px;
-    font-size: 1.10em;
-    
+    font-size: 1.10em;   
 }
 

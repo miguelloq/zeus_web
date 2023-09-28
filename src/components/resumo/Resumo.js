@@ -1,5 +1,5 @@
 import "./Resumo.css";
-import ResumoCard from "../gasto_card/ResumoCard";
+import ResumoCard from "../resumo_card/ResumoCard";
 import React, { useState, useEffect } from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -90,8 +90,10 @@ export default function Resumo(input) {
           horizontal: "left",
         }}
       >
-        <MenuItem onClick={() => handleClose(7)}>Ultimos 7 dias</MenuItem>
-        <MenuItem onClick={() => handleClose(30)}>Último mês</MenuItem>
+        <MenuItem onClick={() => handleClose(7)}>Últimos 7 dias</MenuItem>
+        <MenuItem onClick={() => handleClose(30)}>Últimos 30 dias</MenuItem>
+        <MenuItem onClick={() => handleClose(90)}>Últimos 90 dias</MenuItem>
+        <MenuItem onClick={() => handleClose(365)}>Últimos 365 dias</MenuItem>
         <MenuItem onClick={() => handleClose(undefined)}>
           Todos os dias
         </MenuItem>

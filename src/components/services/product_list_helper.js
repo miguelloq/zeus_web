@@ -34,8 +34,11 @@ export function filterLastProducts(products, amountProducts) {
   let newProducts = [...products];
 
   newProducts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
-  return newProducts.slice(0, amountProducts);
+  if (amountProducts === undefined) {
+    return newProducts;
+  } else {
+    return newProducts.slice(0, amountProducts);
+  }
 }
 export function filterMostRecentObjects(products, quantidade) {
   const productsCopy = [...products];
@@ -50,6 +53,15 @@ export function filterMostRecentObjects(products, quantidade) {
   }
   return productsCopy;
 }
+
+export const filterBasedOnSubStringForName = (products, inputText) => {
+  return products.filter((product) => {
+    if (product.name.toLowerCase().includes(inputText.toLowerCase())) {
+      return true;
+    }
+    return false;
+  });
+};
 
 export function returnVisableType(type) {
   switch (type) {
