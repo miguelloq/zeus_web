@@ -26,7 +26,12 @@ export default function CompraCard(product) {
     setIsDeleteAlertOpen(!isDeleteAlertOpen);
   };
 
-  const visablePurchaseTime = `${purchaseTime.getDate()}/${purchaseTime.getMonth()}/${purchaseTime.getFullYear()}`;
+  const auxPurchaseTime = new Date(purchaseTime)
+    .toISOString()
+    .split("T")[0]
+    .split("-");
+  const visablePurchaseTime = `${auxPurchaseTime[2]}/${auxPurchaseTime[1]}/${auxPurchaseTime[0]}`;
+
   let visableLastEditTime = "";
 
   if (lastEditTime === "") {
@@ -57,14 +62,14 @@ export default function CompraCard(product) {
             <CustomButton
               handleClick={handleOpenDeleteAlert}
               charForIcon="-"
-              title="Remover produto"
+              title="Remover compra"
               width={40}
               height={40}
             />
             <CustomButton
               handleClick={() => handleOpenEdit(id)}
               charForIcon="#"
-              title="Editar produto"
+              title="Editar compra"
               width={40}
               height={40}
             />
@@ -75,7 +80,7 @@ export default function CompraCard(product) {
             {`Tipo: ${returnVisableType(type)}`}
           </p>
           <p className="atribute-compra-card">
-            {`Preço: R$ ${price.toFixed(2)}`}{" "}
+            {`Preço da compra: R$ ${price.toFixed(2)}`}{" "}
           </p>
           <p className="atribute-compra-card">
             {`Quantidade: ${quantity.toFixed(2)}`}

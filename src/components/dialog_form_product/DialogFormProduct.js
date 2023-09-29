@@ -101,7 +101,7 @@ export default function DialogAddProduto(props) {
   const editProduct = (id) => {
     try {
       let product = returnCorrectFormatProduct();
-      verifyProduct(product);
+      verifyProduct(product, true);
       api
         .put(`/produtos/${id}`, product)
         .then((response) => {
@@ -115,7 +115,7 @@ export default function DialogAddProduto(props) {
 
   return (
     <Dialog open={props.openAdd} onClose={props.handleCloseAdd}>
-      <form noValidate onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <DialogTitle>
           {productId === "" ? "Adicione um produto." : "Edite um produto."}
         </DialogTitle>
@@ -134,6 +134,7 @@ export default function DialogAddProduto(props) {
             type="text"
             fullWidth
             variant="filled"
+            inputProps={{ maxlength: 24, minlength: 3 }}
             required={true}
             value={name}
             onChange={(e) => {
@@ -144,7 +145,7 @@ export default function DialogAddProduto(props) {
             autoFocus
             margin="dense"
             id="price"
-            label="Preço do produto"
+            label="Preço da compra"
             type="number"
             fullWidth
             variant="filled"
@@ -184,7 +185,9 @@ export default function DialogAddProduto(props) {
               setDate(e.target.value);
             }}
           />
-          <InputLabel id="demo-simple-select-label">Tipo de produto</InputLabel>
+          <InputLabel id="demo-simple-select-label" style={{ marginTop: 15 }}>
+            Tipo de produto
+          </InputLabel>
           <Select
             labelId="demo-simple-select-label"
             value={type}

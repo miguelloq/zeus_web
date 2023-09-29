@@ -43,15 +43,15 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 2.5%;
-    gap: 16px;
+    gap: 26px;
 }
 
 .content-compra-expand{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    row-gap: 24px;
-    column-gap: 24px;
+    row-gap: 26px;
+    column-gap: 26px;
     margin-bottom: 2.5%;
 }
 

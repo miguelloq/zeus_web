@@ -63,14 +63,14 @@ export default function Compra(inputProducts) {
               handleClick={handleCompraExpand}
               width={isCompraExpanded ? 50 : undefined}
               height={isCompraExpanded ? 50 : undefined}
-              title="Expandir compras"
+              title={isCompraExpanded ? "Fechar histórico" : "Abrir histórico"}
             />
             <CustomButton
               charForIcon="+"
               handleClick={() => handleClickOpenAdd("")}
               width={isCompraExpanded ? 50 : undefined}
               height={isCompraExpanded ? 50 : undefined}
-              title="Adicionar produto"
+              title="Adicionar compra"
             />
           </div>
         </div>
