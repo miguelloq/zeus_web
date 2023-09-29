@@ -7,6 +7,8 @@ import {
   filterLastProducts,
   filterBasedOnSubStringForName,
 } from "../services/product_list_helper";
+import FitScreenIcon from "@mui/icons-material/FitScreen";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 export default function Compra(inputProducts) {
   const [openAdd, setOpenAdd] = useState(false);
@@ -59,14 +61,14 @@ export default function Compra(inputProducts) {
           </div>
           <div className="primary-options-compra">
             <CustomButton
-              charForIcon="/"
+              charForIcon={<FitScreenIcon />}
               handleClick={handleCompraExpand}
               width={isCompraExpanded ? 50 : undefined}
               height={isCompraExpanded ? 50 : undefined}
               title={isCompraExpanded ? "Fechar histórico" : "Abrir histórico"}
             />
             <CustomButton
-              charForIcon="+"
+              charForIcon={<AddCircleOutlineIcon />}
               handleClick={() => handleClickOpenAdd("")}
               width={isCompraExpanded ? 50 : undefined}
               height={isCompraExpanded ? 50 : undefined}

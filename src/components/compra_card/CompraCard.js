@@ -9,6 +9,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 
 export default function CompraCard(product) {
   const id = product.id;
@@ -61,14 +63,14 @@ export default function CompraCard(product) {
           <div className="background-button-container">
             <CustomButton
               handleClick={handleOpenDeleteAlert}
-              charForIcon="-"
+              charForIcon={<DeleteOutlineIcon />}
               title="Remover compra"
               width={40}
               height={40}
             />
             <CustomButton
               handleClick={() => handleOpenEdit(id)}
-              charForIcon="#"
+              charForIcon={<EditNoteIcon />}
               title="Editar compra"
               width={40}
               height={40}

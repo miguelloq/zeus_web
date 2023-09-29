@@ -29,11 +29,11 @@ function checkPrice(price) {
   if (!(typeof price === "number")) {
     throw Error("O preço não é um numero");
   }
-  if (price < 0.01) {
+  if (price < 0.001) {
     throw Error("O preço deve ser maior que zero");
   }
   if (price > 1000000) {
-    throw Error("Numero muito grande");
+    throw Error("O preço tem limite de 1000000");
   }
 }
 
@@ -41,11 +41,11 @@ function checkQuantity(quantity) {
   if (!(typeof quantity === "number")) {
     throw Error("A quantidade não é um numero");
   }
-  if (quantity < 0.01) {
+  if (quantity < 0.001) {
     throw Error("A quantidade deve ser maior que zero");
   }
   if (quantity > 10000) {
-    throw Error("Numero muito grande");
+    throw Error("A quantidade tem limite 10000.");
   }
 }
 
