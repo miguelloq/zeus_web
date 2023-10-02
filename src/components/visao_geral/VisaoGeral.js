@@ -130,10 +130,30 @@ export default function VisaoGeral(props) {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="Remédio" stroke="#00C49F" />
-                <Line type="monotone" dataKey="Brinquedo" stroke="#FF8042" />
-                <Line type="monotone" dataKey="Outros" stroke="#0088FE" />
-                <Line type="monotone" dataKey="Ração" stroke="#FFBB28" />
+                <Line
+                  type="monotone"
+                  dataKey="Remédio"
+                  stroke="#00C49F"
+                  strokeWidth={3.5}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="Brinquedo"
+                  stroke="#FF8042"
+                  strokeWidth={3.5}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="Outros"
+                  stroke="#0088FE"
+                  strokeWidth={3.5}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="Ração"
+                  stroke="#FFBB28"
+                  strokeWidth={3.5}
+                />
               </LineChart>
             </ResponsiveContainer>
           </div>
