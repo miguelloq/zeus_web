@@ -9,6 +9,7 @@ import {
 } from "../services/product_list_helper";
 import FitScreenIcon from "@mui/icons-material/FitScreen";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 
 export default function Compra(inputProducts) {
   const [openAdd, setOpenAdd] = useState(false);
@@ -61,7 +62,9 @@ export default function Compra(inputProducts) {
           </div>
           <div className="primary-options-compra">
             <CustomButton
-              charForIcon={<FitScreenIcon />}
+              charForIcon={
+                isCompraExpanded ? <CloseFullscreenIcon /> : <FitScreenIcon />
+              }
               handleClick={handleCompraExpand}
               width={isCompraExpanded ? 50 : undefined}
               height={isCompraExpanded ? 50 : undefined}

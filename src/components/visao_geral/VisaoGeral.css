@@ -11,7 +11,7 @@
 .content-visao-geral{
     box-sizing: border-box;
     height: 800px;
-    margin: 2.5% 5% 0%; 
+    margin: 32px 5% 0%; 
     display: flex;   
     flex-direction: row;
     gap: 12px;

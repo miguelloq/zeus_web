@@ -68,7 +68,7 @@ export default function Resumo(input) {
       </div>
       <div className="container-cards">
         <ResumoCard quantity={values.racao.toFixed(2)} text="Em ração" />
-        <ResumoCard quantity={values.remedio.toFixed(2)} text="Em remédio" />
+        <ResumoCard quantity={values.remedio.toFixed(2)} text="Em remédios" />
         <ResumoCard
           quantity={values.brinquedo.toFixed(2)}
           text="Em brinquedos"

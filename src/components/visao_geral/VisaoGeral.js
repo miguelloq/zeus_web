@@ -120,10 +120,10 @@ export default function VisaoGeral(props) {
           </div>
           <div className="content-visao-geral-graph2">
             <p className="title-graph">Gastos por categoria por mês</p>
-            <ResponsiveContainer width={"80%"} height={"80%"}>
+            <ResponsiveContainer width={"100%"} height={"80%"}>
               <LineChart
                 data={lineData}
-                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                margin={{ top: 5, right: 15, left: 5, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="month" />

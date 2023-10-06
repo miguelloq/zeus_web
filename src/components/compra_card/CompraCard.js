@@ -39,8 +39,11 @@ export default function CompraCard(product) {
   if (lastEditTime === "") {
     visableLastEditTime = "Não foi editado.";
   } else {
-    let auxLastEditTime = new Date(lastEditTime);
-    visableLastEditTime = `${auxLastEditTime.getDate()}/${auxLastEditTime.getMonth()}/${auxLastEditTime.getFullYear()}`;
+    let auxLastEditTime = new Date(lastEditTime)
+      .toISOString()
+      .split("T")[0]
+      .split("-");
+    visableLastEditTime = `${auxLastEditTime[2]}/${auxLastEditTime[1]}/${auxLastEditTime[0]}`;
   }
 
   const deleteProduct = (identifier) => {
